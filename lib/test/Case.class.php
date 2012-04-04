@@ -140,7 +140,7 @@ abstract class Test_Case extends PHPUnit_Framework_TestCase
   {
     $this->_initContext();
 
-    $this->_assertTestDatabaseConnection();
+    //$this->_assertTestDatabaseConnection();
     $this->_assertTestUploadsDir();
 
     $configuration        = $this->getApplicationConfiguration();
