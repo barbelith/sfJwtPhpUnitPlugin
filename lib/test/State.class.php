@@ -118,20 +118,26 @@ class Test_State
         }
 
         /* Delete records, paying special attention to SoftDelete. */
+        $connectionsPreserved = sfConfig::get('app_sfJwtPhpUnitPlugin_connections_not_flushed_data');
+
         foreach( self::$_dbFlushTree as $model )
         {
           $table = Doctrine_Core::getTable($model);
+          $tableConnectionName = $table->getConnection()->getName();
 
-          if( $table->hasTemplate('SoftDelete') )
+          if (!in_array($tableConnectionName, $connectionsPreserved))
           {
-            /** @var $record Doctrine_Template_SoftDelete */
-            foreach( $table->createQuery()->execute() as $record )
+            if( $table->hasTemplate('SoftDelete') )
             {
-              $record->hardDelete();
+              /** @var $record Doctrine_Template_SoftDelete */
+              foreach( $table->createQuery()->execute() as $record )
+              {
+                $record->hardDelete();
+              }
             }
-          }
 
-          $table->createQuery()->delete()->execute();
+            $table->createQuery()->delete()->execute();
+          }
         }
       }
     }

@@ -1,3 +1,4 @@
 test:
   sfJwtPhpUnitPlugin:
     rebuild_database_on_first_test:       true
+    connections_not_flushed_data:         []
