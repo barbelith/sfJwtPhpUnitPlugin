@@ -1,0 +1,3 @@
+test:
+  sfJwtPhpUnitPlugin:
+    rebuild_database_on_first_test:       true

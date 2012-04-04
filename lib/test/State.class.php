@@ -47,6 +47,7 @@ class Test_State
   public function __construct( sfProjectConfiguration $configuration )
   {
     $this->_configuration = $configuration;
+
     $this->_connection    = $this->getDatabaseConnection();
   }
 
@@ -67,6 +68,11 @@ class Test_State
   {
     if( $this->_connection )
     {
+      if (!sfConfig::get('app_sfJwtPhpUnitPlugin_rebuild_database_on_first_test'))
+      {
+        self::$_dbRebuilt = true;
+      }
+
       /* The first time we run a test case, drop and rebuild the database.
        *
        * After that, we can simply truncate all tables for speed.
@@ -96,6 +102,14 @@ class Test_State
         /* Determine the order we need to load models. */
         if( ! isset(self::$_dbFlushTree) )
         {
+          if (0 === count(Doctrine_Core::getLoadedModels()))
+          {
+            Doctrine_Core::loadModels(
+              sfConfig::get('sf_lib_dir').'/model/doctrine',
+              Doctrine_Core::MODEL_LOADING_CONSERVATIVE
+            );
+          }
+
           /** @noinspection PhpUndefinedFieldInspection */
           $models = $this->_connection->unitOfWork->buildFlushTree(
             Doctrine_Core::getLoadedModels()
