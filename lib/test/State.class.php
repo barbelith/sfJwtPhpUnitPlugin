@@ -127,6 +127,8 @@ class Test_State
 
           if (!in_array($tableConnectionName, $connectionsPreserved))
           {
+            $table->getConnection()->getDbh()->query("SET FOREIGN_KEY_CHECKS=0;");
+
             if( $table->hasTemplate('SoftDelete') )
             {
               /** @var $record Doctrine_Template_SoftDelete */
@@ -137,6 +139,8 @@ class Test_State
             }
 
             $table->createQuery()->delete()->execute();
+
+            $table->getConnection()->getDbh()->query("SET FOREIGN_KEY_CHECKS=1;");
           }
         }
       }
