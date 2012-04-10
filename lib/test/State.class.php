@@ -102,13 +102,10 @@ class Test_State
         /* Determine the order we need to load models. */
         if( ! isset(self::$_dbFlushTree) )
         {
-          if (0 === count(Doctrine_Core::getLoadedModels()))
-          {
-            Doctrine_Core::loadModels(
-              sfConfig::get('sf_lib_dir').'/model/doctrine',
-              Doctrine_Core::MODEL_LOADING_CONSERVATIVE
-            );
-          }
+          Doctrine_Core::loadModels(
+            sfConfig::get('sf_lib_dir').'/model/doctrine',
+            Doctrine_Core::MODEL_LOADING_CONSERVATIVE
+          );
 
           /** @noinspection PhpUndefinedFieldInspection */
           $models = $this->_connection->unitOfWork->buildFlushTree(
