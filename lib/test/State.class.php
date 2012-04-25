@@ -136,6 +136,7 @@ class Test_State
             }
 
             $table->createQuery()->delete()->execute();
+            $table->clear();
 
             $table->getConnection()->getDbh()->query("SET FOREIGN_KEY_CHECKS=1;");
           }

@@ -43,7 +43,8 @@ class RunFunctionalTestsTask extends BasePhpunitRunnerTask
       )
     ));
 
-    $this->name = 'functional';
+    $this->name     = 'functional';
+    $this->aliases  = array('func');
     $this->briefDescription = 'Runs all PHPUnit functional tests for the project.';
 
     $this->detailedDescription = <<<END

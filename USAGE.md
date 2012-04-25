@@ -1892,13 +1892,14 @@ Note:  JPUP is not compatible with Symfony's built-in test tasks.  Do not expect
 ### phpunit:all
 <pre>
 Usage:
- symfony phpunit:all [-f|--filter="..."] [-g|--groups="..."] [-p|--plugin="..."] [-v|--verbose]
+ symfony phpunit:all [-f|--filter="..."] [-g|--groups="..."] [-p|--plugin="..."] [-v|--verbose] [--stop-on-fail]
 
 Options:
- --filter   (-f) Regex used to filter tests; only tests matching the filter will be run.
- --groups   (-g) Only run tests from the specified group(s).
- --plugin   (-p) Run tests for the specified plugin.
- --verbose  (-v) If set, PHPUnit will output additional information (e.g. test names).
+ --filter        (-f) Regex used to filter tests; only tests matching the filter will be run.
+ --groups        (-g) Only run tests from the specified group(s).
+ --plugin        (-p) Run tests for the specified plugin.
+ --verbose       (-v) If set, PHPUnit will output additional information (e.g. test names).
+ --stop-on-fail  If set, stop on the first failure or error.
 
 Description:
  Runs all PHPUnit tests for the project.
@@ -1911,16 +1912,17 @@ Description:
 ### phpunit:unit
 <pre>
 Usage:
- symfony phpunit:unit [-f|--filter="..."] [-g|--groups="..."] [-p|--plugin="..."] [-v|--verbose] [path1] ... [pathN]
+ symfony phpunit:unit [-f|--filter="..."] [-g|--groups="..."] [-p|--plugin="..."] [-v|--verbose] [--stop-on-fail] [path1] ... [pathN]
 
 Arguments:
- path       Specify the relative paths to specific test files and/or directories under sf_root_dir/test/unit.  If no arguments are provided, all unit tests will be run.
+ path            Specify the relative paths to specific test files and/or directories under sf_root_dir/test/unit.  If no arguments are provided, all unit tests will be run.
 
 Options:
- --filter   (-f) Regex used to filter tests; only tests matching the filter will be run.
- --groups   (-g) Only run tests from the specified group(s).
- --plugin   (-p) Run tests for the specified plugin.
- --verbose  (-v) If set, PHPUnit will output additional information (e.g. test names).
+ --filter        (-f) Regex used to filter tests; only tests matching the filter will be run.
+ --groups        (-g) Only run tests from the specified group(s).
+ --plugin        (-p) Run tests for the specified plugin.
+ --verbose       (-v) If set, PHPUnit will output additional information (e.g. test names).
+ --stop-on-fail  If set, stop on the first failure or error.
 
 Description:
  Runs PHPUnit unit tests for the project.
@@ -1944,16 +1946,19 @@ Description:
 ### phpunit:functional
 <pre>
 Usage:
- symfony phpunit:functional [-f|--filter="..."] [-g|--groups="..."] [-p|--plugin="..."] [-v|--verbose] [path1] ... [pathN]
+ symfony phpunit:functional [-f|--filter="..."] [-g|--groups="..."] [-p|--plugin="..."] [-v|--verbose] [--stop-on-fail] [path1] ... [pathN]
+
+Aliases: func
 
 Arguments:
- path       Specify the relative paths to specific test files and/or directories under sf_root_dir/test/functional.  If no arguments are provided, all functional tests will be run.
+ path            Specify the relative paths to specific test files and/or directories under sf_root_dir/test/functional.  If no arguments are provided, all functional tests will be run.
 
 Options:
- --filter   (-f) Regex used to filter tests; only tests matching the filter will be run.
- --groups   (-g) Only run tests from the specified group(s).
- --plugin   (-p) Run tests for the specified plugin.
- --verbose  (-v) If set, PHPUnit will output additional information (e.g. test names).
+ --filter        (-f) Regex used to filter tests; only tests matching the filter will be run.
+ --groups        (-g) Only run tests from the specified group(s).
+ --plugin        (-p) Run tests for the specified plugin.
+ --verbose       (-v) If set, PHPUnit will output additional information (e.g. test names).
+ --stop-on-fail  If set, stop on the first failure or error.
 
 Description:
  Runs PHPUnit functional tests for the project.

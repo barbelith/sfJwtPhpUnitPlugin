@@ -72,6 +72,14 @@ abstract class BasePhpunitRunnerTask extends BasePhpunitTask
         sfCommandOption::PARAMETER_NONE,
         'If set, PHPUnit will output additional information (e.g. test names).',
         null
+      ),
+
+      new sfCommandOption(
+        'stop-on-fail',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'If set, stop on the first failure or error.',
+        null
       )
     ));
   }
@@ -303,26 +311,35 @@ abstract class BasePhpunitRunnerTask extends BasePhpunitTask
   protected function _validatePhpUnitInput( array $args, array $opts )
   {
     $allowed = array(
-      'color'       => false,
-      'filter'      => null,
-      'groups'      => null,
-      'plugin'      => null,
-      'verbose'     => false
+      'color'         => false,
+      'filter'        => null,
+      'groups'        => null,
+      'plugin'        => null,
+      'verbose'       => false,
+      'stop-on-fail'  => false
     );
 
-    $params = $this->_consolidateInput($args, $opts, $allowed, true);
-    foreach( $params as $key => &$val )
+    $translate = array(
+      'color'         => 'colors',
+      'stop-on-fail'  => 'stopOnFailure'
+    );
+
+    $params = array();
+    foreach( $this->_consolidateInput($args, $opts, $allowed, true) as $key => $val )
     {
       /* Coerce type. */
       if( isset($allowed[$key]) )
       {
         settype($val, gettype($allowed[$key]));
       }
-    }
 
-    /* Special case:  Symfony's CLI uses "color", but PHPUnit uses "colors". */
-    $params['colors'] = $params['color'];
-    unset($params['color']);
+      if( isset($translate[$key]) )
+      {
+        $key = $translate[$key];
+      }
+
+      $params[$key] = $val;
+    }
 
     /* Special case:  groups has to be an array. */
     if( isset($params['groups']) )
