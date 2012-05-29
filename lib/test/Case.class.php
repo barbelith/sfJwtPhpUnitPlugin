@@ -156,8 +156,7 @@ abstract class Test_Case extends PHPUnit_Framework_TestCase
 
     $this->_state
       ->flushDatabase()
-      ->flushUploads()
-      ->flushConfigs();
+      ->flushUploads();
 
     $this->_init();
     $this->_setUp();
