@@ -1,6 +1,30 @@
+# 1.0.12
+## Issues
+- Resolved [#37] Added `phpunit:load-fixture` task.
+
+## Major Changes
+- JPUP now requires PHPUnit 3.6.6.
+- Added `--stop-on-fail` option to runner tasks.
+
+## Minor Changes
+- Added alias `phpunit:func` for `phpunit:functional`.
+- Added `Test_Case_Functional->assertFormIsValid()` and
+  `->assertFormIsNotValid()`.
+- Fixed irritating "can't set headers - output already sent" when error occurs
+  during browser context initialization in functional tests (usually caused by
+  browser listeners).
+- Clear table identity maps when flushing the database.
+- Minor bug fixes in `Test_Browser->genUrl()`.
+- Removed `package.xml.tmpl`.
+- Added notice for symfony-project.org visitors to `README.md`; the version of
+  JPUP on Symfony's website is horribly out-of-date, and it is likely to remain
+  that way for quite some time.
+- Added strategies for enhancing performance and memory usage in `INSTALL.md`.
+
 # 1.0.11
 ## Issues
-- Resolved [#16] Automatically set and create expected uploads directory before running tests.
+- Resolved [#16] Automatically set and create expected uploads directory before
+  running tests.
 
 ## Major Changes
 - `Test_Browser->genUrl()` now removes default path prefix more reliably.

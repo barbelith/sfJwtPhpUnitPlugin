@@ -30,29 +30,35 @@
 class Test_Constraint_StatusCodeEquals extends PHPUnit_Framework_Constraint
 {
   const
-    MESSAGE = 'response has %d HTTP status code (got: %d %s)';
+    MESSAGE = 'response HTTP status code %s (got: %d %s)';
 
   protected
     $_expected;
 
   /** Init the class instance.
    *
-   * @param int $expected
+   * @param int|int[] $expected
+   *
+   * @throws InvalidArgumentException
    */
   public function __construct( $expected )
   {
-    if( ! ctype_digit((string) $expected) )
+    foreach( (array) $expected as $value )
     {
-      throw PHPUnit_Util_InvalidArgumentHelper::factory(0, 'int');
+      if( ! ctype_digit((string) $value) )
+      {
+        throw PHPUnit_Util_InvalidArgumentHelper::factory(0, 'int[]');
+      }
     }
 
-    $this->_expected = $expected;
+    $this->_expected = array_values((array) $expected);
   }
 
   /** Checks the status code.
    *
    * @param Test_Browser $browser
    *
+   * @throws InvalidArgumentException
    * @return bool
    */
   protected function matches( $browser )
@@ -62,7 +68,7 @@ class Test_Constraint_StatusCodeEquals extends PHPUnit_Framework_Constraint
       throw PHPUnit_Util_InvalidArgumentHelper::factory(0, 'Test_Browser');
     }
 
-    return ($browser->getResponse()->getStatusCode() == $this->_expected);
+    return in_array($browser->getResponse()->getStatusCode(), $this->_expected);
   }
 
   /** Returns a generic string representation of the object.
@@ -71,7 +77,11 @@ class Test_Constraint_StatusCodeEquals extends PHPUnit_Framework_Constraint
    */
   public function toString(  )
   {
-    return sprintf('is equal to <int:%d>', $this->_expected);
+    return (
+      isset($this->_expected[1])
+        ? sprintf('is one of [%s]', implode(', ', $this->_expected))
+        : sprintf('is equal to <int:%d>', reset($this->_expected))
+    );
   }
 
   /** Appends relevant error message information to a failed status check.
@@ -92,7 +102,7 @@ class Test_Constraint_StatusCodeEquals extends PHPUnit_Framework_Constraint
 
     return sprintf(
       self::MESSAGE,
-        $this->_expected,
+        $this->toString(),
         $code,
         $error
     );

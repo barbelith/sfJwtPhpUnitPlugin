@@ -57,8 +57,8 @@ abstract class Test_Case_Functional extends Test_Case
   /** Asserts that the response from the most recent request sent the correct
    *    HTTP status code.
    *
-   * @param int    $code
-   * @param string $message   Custom failure message (optional).
+   * @param int|int[] $code     If array, must match one of these.
+   * @param string    $message  Custom failure message (optional).
    *
    * @return void
    */

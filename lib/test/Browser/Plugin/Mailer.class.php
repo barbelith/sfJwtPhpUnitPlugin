@@ -51,7 +51,7 @@ class Test_Browser_Plugin_Mailer extends Test_Browser_Plugin
 
   /** Returns a reference to the email logger from the browser context.
    *
-   * @return $this
+   * @return static
    */
   public function invoke(  )
   {

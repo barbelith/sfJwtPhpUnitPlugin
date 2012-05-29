@@ -1633,11 +1633,26 @@ After generating the export files, we flush the database and load a new
 * `flushDatabase()` takes an optional `$rebuild` parameter that will force it to
   drop and rebuild the entire database rather than just truncating all the data.
 
-  Note that JPUP does **not** rebuild the database between tests; it only
-  flushes the data.  If you are testing a script that modifies the structure of
-  the database, be sure to call `$this->flushDatabase(true)` when the test is
-  finished (preferably in such a way that a failed assertion won't cause it to
-  get skipped!).
+## Rebuilding the Database Between Tests
+
+By default, JPUP does **not** rebuild the database between tests; it only
+  flushes the data.
+
+If you are testing a script that modifies the structure of the database, it is
+  recommended that you set the `$_alwaysRebuildDB` property of your test case
+  to `true` so that the database will be destroyed and rebuilt before *every*
+  test in the test case:
+
+    # sf_test_dir/unit/lib/db/DBDestroyer.class.php
+
+    <?php
+    class DBDestroyerTest extends Test_Case_Unit
+    {
+      protected
+        $_alwaysRebuildDB = true;
+
+      ...
+    }
 
 # File Uploads
 JPUP requires that your project have a separate uploads directory for testing so

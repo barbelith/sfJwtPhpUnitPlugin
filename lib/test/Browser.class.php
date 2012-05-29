@@ -31,7 +31,6 @@
  * @package jwt
  * @subpackage lib.test
  *
- * @method sfContext        getContext(boolean $forceReload = false)
  * @method void             addListener(string $name, callback $listener)
  * @method sfUser           getUser()
  * @method sfBrowser        setHttpHeader(string $header, string $value)
@@ -98,9 +97,12 @@ class Test_Browser extends Test_ObjectWrapper
    *
    * @param string,... $plugin_name
    *
-   * @return $this
+   * @return static
    */
-  public function usePlugin( $plugin_name/*, ... */ )
+  public function usePlugin(
+    /** @noinspection PhpUnusedParameterInspection */
+    $plugin_name /*, ... */
+  )
   {
     foreach( func_get_args() as $name )
     {
@@ -131,7 +133,10 @@ class Test_Browser extends Test_ObjectWrapper
    *
    * @param string|sfGuardUser $user
    *
-   * @return $this
+   * @throws LogicException           If sfDoctrineGuardPlugin is not enabled.
+   * @throws InvalidArgumentException If $user cannot be resolved to an
+   *  sfGuardUser.
+   * @return static
    */
   public function signin( $user )
   {
@@ -179,7 +184,7 @@ class Test_Browser extends Test_ObjectWrapper
    * @param array  $parameters  The Request parameters
    * @param bool   $changeStack  Change the browser history stack?
    *
-   * @return $this
+   * @return static
    */
   public function get( $uri, $parameters = array(), $changeStack = true )
   {
@@ -192,7 +197,7 @@ class Test_Browser extends Test_ObjectWrapper
    * @param array  $parameters  The Request parameters
    * @param bool   $changeStack  Change the browser history stack?
    *
-   * @return $this
+   * @return static
    */
   public function post( $uri, $parameters = array(), $changeStack = true )
   {
@@ -206,7 +211,7 @@ class Test_Browser extends Test_ObjectWrapper
    * @param array  $parameters   The Request parameters
    * @param bool   $changeStack  Change the browser history stack?
    *
-   * @return $this
+   * @return static
    */
   public function call( $uri, $method = 'get', $parameters = array(), $changeStack = true )
   {
@@ -226,16 +231,6 @@ class Test_Browser extends Test_ObjectWrapper
       $changeStack
     );
     $this->_isCalled = true;
-
-    /** If Symfony throws a 500 error, it will clear out ALL output buffering.
-     *    This causes all kinds of wonky things to happen in PHPUnit 3.6.
-     *
-     * @see sfException::printStackTrace()
-     */
-    if( ob_get_level() < 1 )
-    {
-      ob_start();
-    }
 
     return $this;
   }
@@ -301,7 +296,7 @@ class Test_Browser extends Test_ObjectWrapper
    *
    * @param Test_Browser_Listener $listener
    *
-   * @return $this
+   * @return static
    */
   public function addListener( Test_Browser_Listener $listener )
   {
@@ -315,6 +310,31 @@ class Test_Browser extends Test_ObjectWrapper
     }
 
     return $this;
+  }
+
+  /** Returns the current application context.
+   *
+   * @param bool $forceReload Whether to ignore existing context instance.
+   *
+   * @return sfContext
+   */
+  public function getContext( $forceReload = false )
+  {
+    /** @noinspection PhpUndefinedMethodInspection */
+    $context = $this->getEncapsulatedObject()->getContext($forceReload);
+
+    /** If an error occurs while initializing the context object, it will try
+     *    to dump a stack trace.
+     *
+     * @see sfContext::initialize()
+     */
+    if( $e = $this->getCurrentException() )
+    {
+      ob_end_clean();
+      throw $e;
+    }
+
+    return $context;
   }
 
   /** Handles an attempt to call a non-existent method.

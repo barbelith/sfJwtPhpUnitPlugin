@@ -64,7 +64,7 @@ class Test_Browser_Plugin_Logger extends Test_Browser_Plugin
 
   /** Invokes the plugin.
    *
-   * @return $this
+   * @return static
    */
   public function invoke(  )
   {
@@ -84,6 +84,7 @@ class Test_Browser_Plugin_Logger extends Test_Browser_Plugin
   {
     $messages = array();
 
+    /** @noinspection PhpUndefinedMethodInspection */
     $logs   = $this->getEncapsulatedObject()->getLogs();
     $digits = strlen(count($logs));
 

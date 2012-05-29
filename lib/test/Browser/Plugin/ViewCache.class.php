@@ -72,7 +72,7 @@ class Test_Browser_Plugin_ViewCache extends Test_Browser_Plugin
    *
    * Note:  If caching is disabled, this method will return null.
    *
-   * @return $this|null
+   * @return static
    */
   public function invoke(  )
   {

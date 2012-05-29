@@ -57,7 +57,7 @@ class Test_Browser_Plugin_Content extends Test_Browser_Plugin
 
   /** Returns a reference to the response content.
    *
-   * @return $this
+   * @return static
    */
   public function invoke(  )
   {

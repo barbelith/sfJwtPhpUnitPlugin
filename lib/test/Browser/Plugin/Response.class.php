@@ -66,7 +66,7 @@ class Test_Browser_Plugin_Response extends Test_Browser_Plugin
 
   /** Returns a reference to the response object from the browser context.
    *
-   * @return $this
+   * @return static
    */
   public function invoke(  )
   {

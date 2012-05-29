@@ -52,7 +52,7 @@ class Test_Browser_Plugin_Error extends Test_Browser_Plugin
 
   /** Returns a reference to the uncaught exception from the application.
    *
-   * @return $this
+   * @return static
    */
   public function invoke(  )
   {

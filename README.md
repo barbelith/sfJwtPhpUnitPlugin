@@ -1,15 +1,18 @@
 # Welcome symfony-project.org visitors!
 
-Please note that the version of JPUP hosted at http://symfony-project.org/plugins/sfJwtPhpUnitPlugin is
-  out-of-date ([1.0.3](https://github.com/JWT-OSS/sfJwtPhpUnitPlugin/blob/1.0.3/README.md) even though it
-  says 1.0.7 on the plugin page).
+Please note that the version of JPUP hosted at
+  http://symfony-project.org/plugins/sfJwtPhpUnitPlugin is out-of-date
+  ([1.0.3](https://github.com/JWT-OSS/sfJwtPhpUnitPlugin/blob/1.0.3/README.md)
+  even though it says 1.0.7 on the plugin page).
 
-Unfortunately, the developer who maintains this project no longer has access to the symfony-project.org
-  account that owns the plugin page, as he no longer works at JWT, so the version on symfony-project.org
-  will likely remain obsolete for the foreseeable future.
+Unfortunately, the developer who maintains this project no longer has access to
+  the symfony-project.org account that owns the plugin page, as he no longer
+  works at JWT, so the version on symfony-project.org will likely remain
+  obsolete for the foreseeable future.
 
-If you aren't already, it is strongly recommended that you use git submodules to manage the JPUP
-  installation for your projects instead of Symfony's plugin manager.
+If you aren't already, it is strongly recommended that you use git submodules to
+  manage the JPUP installation for your projects instead of Symfony's plugin
+  manager.
 
 # 1.0.10 Update
 
@@ -20,7 +23,7 @@ Please note that 1.0.10 introduces a change that could break existing functional
     route.  If you are calling a route with required parameters, they *must* be
     included in `$uri`, or else an `InvalidArgumentException` will be thrown.
 
-  See USAGE.md ("Query String Parameters") for more information.
+  See [USAGE.md](./USAGE.md) ("Query String Parameters") for more information.
 
 # sfJwtPhpUnitPlugin
 ## About
@@ -30,8 +33,8 @@ sfJwtPhpUnitPlugin ("JPUP") was developed at [JWT](http://jwt.com) to assist in
 JPUP boasts robust database handling (modeled loosely after
   [Django's test framework](http://docs.djangoproject.com/en/dev/topics/testing/#s-the-test-database)
   and [sfPhpUnitPlugin](https://www.hostedredmine.com/projects/sfphpunitplugin/wiki/1013#Fixtures)),
-  unlimited extensibility over Symfony's `sfBrowser` class and user-friendly tasks
-  for running collections of tests.
+  unlimited extensibility over Symfony's `sfBrowser` class and user-friendly
+  tasks for running collections of tests.
 
 We found this plugin to be exceptionally useful for testing database-driven
   Symfony applications, and we wanted to share it with the Symfony community.
@@ -57,17 +60,17 @@ Propel is not currently supported, but
   [there are plans to add Propel support](https://github.com/JWT-OSS/sfJwtPhpUnitPlugin/issues/29).
 
 ### PHPUnit
-JPUP requires PHPUnit 3.6.  PHPUnit 3.5 and earlier versions are not supported.
+JPUP requires PHPUnit 3.6.6.
 
 ### PHP
 
 JPUP is intended to be compatible with PHP 5.2 and greater.
 
 ## Installation
-See INSTALL.md.
+See [INSTALL.md](./INSTALL.md).
 
 ## Usage
-See USAGE.md.
+See [USAGE.md](./USAGE.md).
 
 ## Contributing
 We welcome any and all suggestions, requests, (constructive) criticism, code,
